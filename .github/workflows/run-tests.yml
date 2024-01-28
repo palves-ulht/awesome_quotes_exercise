@@ -1,0 +1,19 @@
+name: Run Tests
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: macOS-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.5'
+      - uses: futureware-tech/simulator-action@v3
+        with:
+          model: 'iPhone 8'
+      - run: flutter pub get
+      - run: dart analyze
+      - run: flutter test integration_test
