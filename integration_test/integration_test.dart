@@ -1,6 +1,5 @@
 import 'package:awesome_quotes/awesome_quotes.dart';
 import 'package:awesome_quotes_exercise/main.dart';
-import 'package:awesome_quotes_exercise/main_page.dart';
 import 'package:awesome_quotes_exercise/models/favorites_model.dart';
 import 'package:awesome_quotes_exercise/pages/favorites_page.dart';
 import 'package:awesome_quotes_exercise/pages/quote_page.dart';
@@ -33,6 +32,9 @@ void main() {
       Text quoteText = tester.widget(find.byKey(kQuoteTextKey));
       String? quote = quoteText.data;
       expect(quote, isNotNull);
+      Text authorText = tester.widget(find.byKey(kAuthorTextKey));
+      String? author = authorText.data;
+      expect(author, isNotNull);
 
       // tap the next button
       await tester.tap(find.byKey(kNextButtonKey));
@@ -66,7 +68,6 @@ void main() {
       expect(find.byKey(kNextButtonKey), findsOneWidget);
 
       final Finder buttonFinder = find.byKey(kLiKeButtonKey);
-      ElevatedButton button = tester.widget(buttonFinder);
       final Finder textInsideButtonFinder = find.descendant(of: buttonFinder, matching: find.byType(Text));
       Text textInsideButton = tester.widget(textInsideButtonFinder);
       expect(textInsideButton.data, "Like");
