@@ -45,3 +45,8 @@ Para a navegação deves usar uma [NavigationBar](https://api.flutter.dev/flutte
 A classe `FavoritesModel` deverá ser um singleton com uma propriedade `favorites` contendo uma lista de `Quote` (esta classe
 está incluída na biblioteca "awesome_quotes".
 
+A classe `QuotesService` deverá ser um singleton com um método `getRandomQuote()` que retorna uma quote aleatória. Esta classe
+limita-se a chamar a biblioteca "awesome_quotes". No entanto, tem uma particularidade importante para facilitar os testes - 
+permite "injetar" uma quote fixa através da propriedade `testingQuote`. Quando se injeta essa quote, a classe passar a retornar
+sempre esse quote no `getRandomQuote()`.
+
