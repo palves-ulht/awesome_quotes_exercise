@@ -40,7 +40,8 @@ Deves então criar a aplicação tendo em conta estes pressupostos, até que ela
 Para obteres as frases "inspiradoras" irás usar a lib [awesome_quotes](https://pub.dev/packages/awesome_quotes). Esta lib
 já está incluída no pubspec.yaml.
 
-Para a navegação deves usar uma [NavigationBar](https://api.flutter.dev/flutter/material/NavigationBar-class.html)
+Para a navegação deves usar uma [NavigationBar](https://api.flutter.dev/flutter/material/NavigationBar-class.html). A navegação
+deve ser implementada no widget `MainPage` que deves criar no ficheiro `main_page.dart`.
 
 A classe `FavoritesModel` deverá ser um singleton com uma propriedade `favorites` contendo uma lista de `Quote` (esta classe
 está incluída na biblioteca "awesome_quotes".
