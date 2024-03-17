@@ -47,7 +47,8 @@ Deverás criar 2 singletons: `FavoritesModel` e `QuotesService`. Note-se que, po
 única instância da classe, acessível através da propriedade `instance`. Ex: `FavoritesModel.instance`.
 
 A classe `FavoritesModel` deverá ser um singleton com uma propriedade `favorites` contendo uma lista de `Quote` (esta classe
-está incluída na biblioteca "awesome_quotes".
+está incluída na biblioteca "awesome_quotes"). Para garantir o encapsulamento, essa propriedade deve ser apenas de leitura 
+(dica: usa um getter que retorne `UnmodifiableListView` ) e deves incluir um método `addFavorite(Quote quote)`.
 
 A classe `QuotesService` deverá ser um singleton com um método `getRandomQuote()` que retorna uma quote aleatória. Esta classe
 limita-se a chamar a biblioteca "awesome_quotes". No entanto, tem uma particularidade importante para facilitar os testes - 
