@@ -48,6 +48,6 @@ está incluída na biblioteca "awesome_quotes".
 
 A classe `QuotesService` deverá ser um singleton com um método `getRandomQuote()` que retorna uma quote aleatória. Esta classe
 limita-se a chamar a biblioteca "awesome_quotes". No entanto, tem uma particularidade importante para facilitar os testes - 
-permite "injetar" uma quote fixa através da propriedade `testingQuote`. Quando se injeta essa quote, a classe passar a retornar
+permite "injetar" uma quote fixa através da propriedade (da classe) `testingQuote`. Quando se injeta essa quote, a classe passar a retornar
 sempre esse quote no `getRandomQuote()`.
 
