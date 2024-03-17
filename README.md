@@ -43,6 +43,9 @@ já está incluída no pubspec.yaml.
 Para a navegação deves usar uma [NavigationBar](https://api.flutter.dev/flutter/material/NavigationBar-class.html). A navegação
 deve ser implementada no widget `MainPage` que deves criar no ficheiro `main_page.dart`.
 
+Deverás criar 2 singletons: `FavoritesModel` e `QuotesService`. Note-se que, por serem singletons, devem permitir criar uma
+única instância da classe, acessível através da propriedade `instance`. Ex: `FavoritesModel.instance`.
+
 A classe `FavoritesModel` deverá ser um singleton com uma propriedade `favorites` contendo uma lista de `Quote` (esta classe
 está incluída na biblioteca "awesome_quotes".
 
