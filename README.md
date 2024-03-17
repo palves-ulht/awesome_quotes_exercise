@@ -55,3 +55,6 @@ limita-se a chamar a biblioteca "awesome_quotes". No entanto, tem uma particular
 permite "injetar" uma quote fixa através da propriedade (da classe) `testingQuote`. Quando se injeta essa quote, a classe passar a retornar
 sempre esse quote no `getRandomQuote()`.
 
+Nota que há quotes bastante grandes (com muitos carateres). Deves ter o cuidado de garantir que o texto da quote cabe sempre no ecrã
+sem fazer overflow.
+
