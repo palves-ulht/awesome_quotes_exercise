@@ -1,16 +1,4 @@
-# awesome_quotes_exercise
-
-## Preparação do repositório no github
-
-O primeiro passo tem a ver com uma limitação do github: o repositório que foi criado para ti não tem as actions 
-habilitadas por omissão. Isso quer dizer que os testes não vão correr automaticamente, 
-de cada vez que fazes push (mas deviam!).
-
-Para habilitar as actions, vai ao separador "Actions" na página inicial do repositório, deve-te aparecer uma página
-"Workflows aren’t being run on this forked repository". 
-Deves clicar no botão "I understand my workflows, go ahead and enable them".
-
-![actions screenshot](./docs/screenshot-actions.png)
+# Exercício Flutter - awesome quotes
 
 ## Objetivo
 
@@ -23,17 +11,20 @@ O objetivo deste exercício é desenvolver uma aplicação em flutter que mostra
 Este repositório foi criado já com a estrutura (em termos de ficheiros) da aplicação, só tens que criar o código necessário
 dentro desses ficheiros. Já existe algum código criado para customizar o tema da aplicação.
 
-Está também incluído um ficheiro integration_test.dart que permite correr uma série de testes de integração. Não deves alterar
-este ficheiro. Estes testes vão ser executados de cada vez que fazes push para o repositório.
+Estão também incluídos dois ficheiros test/widget_test.dart e integration_test/integration_test.dart que 
+permitem correr uma série de testes de widget/integração. Não deves alterar
+estes ficheiros. Deves, no entanto, utilizá-los para validar localmente que implementaste corretamente a aplicação. 
 
-Estes testes de integração assumem que alguns dos widgets têm uma chave específica associada, vê na imagem abaixo quais
+Além disso, estes testes vão ser executados de cada vez que fazes push para o repositório[^1].
+
+Estes testes assumem que alguns dos widgets têm uma chave específica associada, vê na imagem abaixo quais
 são essas chaves:
 
 ![chaves dos widgets](./docs/screenshot.png)
 
 Deves então criar a aplicação tendo em conta estes pressupostos, até que ela:
 * Tenha o aspeto e comportamento apresentado na demonstração acima
-* Passe os testes de integração
+* Passe os testes de widget e integração
 
 ## Dicas técnicas
 
@@ -57,4 +48,11 @@ sempre esse quote no `getRandomQuote()`.
 
 Nota que há quotes bastante grandes (com muitos carateres). Deves ter o cuidado de garantir que o texto da quote cabe sempre no ecrã
 sem fazer overflow.
+
+Se reparares, o código do testes de widget é praticamente igual aos do testes de integração. No entanto, os testes de widget
+correm muito mais rápido, por isso recomendamos que executes esses testes em vez dos de integração. No entanto, pode haver
+erros difíceis de diagnosticar nos testes de widget que se tornam mais óbvios nos testes de integração pois consegues ver
+no emulador aquilo que está a ser testado.
+
+[^1]: Por razões de desempenho, neste momento, os testes de integração não estão a ser executados no github.
 
