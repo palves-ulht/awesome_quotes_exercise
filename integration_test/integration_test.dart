@@ -7,6 +7,15 @@ import 'package:awesome_quotes_exercise/services/quotes_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:provider/provider.dart';
+
+final defaultQuote = Quote("Testing quote", "Testing author");
+
+class FakeQuotesService extends QuotesService {
+  Quote getRandomQuote() {
+    return defaultQuote;
+  }
+}
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -18,9 +27,17 @@ void main() {
   const kQuotePageKey = Key('quote-page');
   const kFavoritesPageKey = Key('favorites-page');
 
-  group('Integration tests with real quotes service', () {
+  group('Tests with real quotes service', () {
     testWidgets('Shows quote page, hit next and get a new quote', (WidgetTester tester) async {
-      await tester.pumpWidget(MyApp());
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (context) => FavoritesModel()),
+            Provider(create: (context) => QuotesService()),
+          ],
+          child: const MyApp(),
+        ),
+      );
 
       expect(find.byType(QuotePage), findsOneWidget);
 
@@ -50,16 +67,18 @@ void main() {
     });
   });
 
-  group('Integration tests with mocked quotes service', () {
-
-    final defaultQuote = Quote("Testing quote", "Testing author");
-
-    setUp(() {
-      QuotesService.instance.testingQuote = defaultQuote;
-    });
+  group('Tests with fake quotes service', () {
 
     testWidgets('Shows quote page', (WidgetTester tester) async {
-      await tester.pumpWidget(MyApp());
+      await tester.pumpWidget(
+          MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (context) => FavoritesModel()),
+              Provider(create: (context) => FakeQuotesService()),
+            ],
+            child: const MyApp(),
+          )
+      );
 
       expect(find.byType(QuotePage), findsOneWidget);
 
@@ -83,7 +102,15 @@ void main() {
     });
 
     testWidgets('Navigate to favorites and back to quote', (WidgetTester tester) async {
-      await tester.pumpWidget(MyApp());
+      await tester.pumpWidget(
+          MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (context) => FavoritesModel()),
+              Provider(create: (context) => FakeQuotesService()),
+            ],
+            child: const MyApp(),
+          )
+      );
 
       expect(find.byType(QuotePage), findsOneWidget);
 
@@ -110,7 +137,15 @@ void main() {
     });
 
     testWidgets('Mark as favorite and navigate to favorites', (WidgetTester tester) async {
-      await tester.pumpWidget(MyApp());
+      await tester.pumpWidget(
+          MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (context) => FavoritesModel()),
+              Provider(create: (context) => FakeQuotesService()),
+            ],
+            child: const MyApp(),
+          )
+      );
 
       expect(find.byType(QuotePage), findsOneWidget);
 

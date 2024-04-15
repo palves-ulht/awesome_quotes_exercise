@@ -6,9 +6,21 @@ import 'package:awesome_quotes_exercise/pages/quote_page.dart';
 import 'package:awesome_quotes_exercise/services/quotes_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
+
+final defaultQuote = Quote("Testing quote", "Testing author");
+
+// Extends QuotesService to always return the same quote (the defaultQuote)
+// This is useful for testing, since the original QuotesService will return
+// a random quote and tests should work with predictable outcomes.
+class FakeQuotesService extends QuotesService {
+  @override
+  Quote getRandomQuote() {
+    return defaultQuote;
+  }
+}
 
 void main() {
-
   const kLiKeButtonKey = Key('like-button');
   const kNextButtonKey = Key('next-button');
   const kQuoteTextKey = Key('quote-text');
@@ -16,9 +28,17 @@ void main() {
   const kQuotePageKey = Key('quote-page');
   const kFavoritesPageKey = Key('favorites-page');
 
-  group('Integration tests with real quotes service', () {
+  group('Tests with real quotes service', () {
     testWidgets('Shows quote page, hit next and get a new quote', (WidgetTester tester) async {
-      await tester.pumpWidget(MyApp());
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (context) => FavoritesModel()),
+            Provider(create: (context) => QuotesService()),
+          ],
+          child: const MyApp(),
+        ),
+      );
 
       expect(find.byType(QuotePage), findsOneWidget);
 
@@ -48,16 +68,18 @@ void main() {
     });
   });
 
-  group('Integration tests with mocked quotes service', () {
-
-    final defaultQuote = Quote("Testing quote", "Testing author");
-
-    setUp(() {
-      QuotesService.instance.testingQuote = defaultQuote;
-    });
+  group('Tests with fake quotes service', () {
 
     testWidgets('Shows quote page', (WidgetTester tester) async {
-      await tester.pumpWidget(MyApp());
+      await tester.pumpWidget(
+          MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (context) => FavoritesModel()),
+              Provider(create: (context) => FakeQuotesService()),
+            ],
+            child: const MyApp(),
+          )
+      );
 
       expect(find.byType(QuotePage), findsOneWidget);
 
@@ -81,7 +103,15 @@ void main() {
     });
 
     testWidgets('Navigate to favorites and back to quote', (WidgetTester tester) async {
-      await tester.pumpWidget(MyApp());
+      await tester.pumpWidget(
+          MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (context) => FavoritesModel()),
+              Provider(create: (context) => FakeQuotesService()),
+            ],
+            child: const MyApp(),
+          )
+      );
 
       expect(find.byType(QuotePage), findsOneWidget);
 
@@ -108,12 +138,23 @@ void main() {
     });
 
     testWidgets('Mark as favorite and navigate to favorites', (WidgetTester tester) async {
-      await tester.pumpWidget(MyApp());
+
+      final favoritesModel = FavoritesModel();
+
+      await tester.pumpWidget(
+          MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (context) => favoritesModel),
+              Provider(create: (context) => FakeQuotesService()),
+            ],
+            child: const MyApp(),
+          )
+      );
 
       expect(find.byType(QuotePage), findsOneWidget);
 
       // check that the model is empty
-      expect(FavoritesModel.instance.favorites, equals([]));
+      expect(favoritesModel.favorites, equals([]));
 
       // buttons
       expect(find.byKey(kLiKeButtonKey), findsOneWidget);
@@ -121,7 +162,7 @@ void main() {
       await tester.tap(find.byKey(kLiKeButtonKey));
 
       // check that the model now includes the favorite quote
-      expect(FavoritesModel.instance.favorites, equals([defaultQuote]));
+      expect(favoritesModel.favorites, equals([defaultQuote]));
 
       await tester.tap(find.byKey(kFavoritesPageKey));
       await tester.pump();
