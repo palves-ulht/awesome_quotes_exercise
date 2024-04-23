@@ -34,7 +34,7 @@ void main() {
         MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (context) => FavoritesModel()),
-            Provider(create: (context) => QuotesService()),
+            Provider<QuotesService>(create: (context) => QuotesService()),
           ],
           child: const MyApp(),
         ),
@@ -75,7 +75,7 @@ void main() {
           MultiProvider(
             providers: [
               ChangeNotifierProvider(create: (context) => FavoritesModel()),
-              Provider(create: (context) => FakeQuotesService()),
+              Provider<QuotesService>(create: (context) => FakeQuotesService()),
             ],
             child: const MyApp(),
           )
@@ -107,7 +107,7 @@ void main() {
           MultiProvider(
             providers: [
               ChangeNotifierProvider(create: (context) => FavoritesModel()),
-              Provider(create: (context) => FakeQuotesService()),
+              Provider<QuotesService>(create: (context) => FakeQuotesService()),
             ],
             child: const MyApp(),
           )
@@ -145,7 +145,7 @@ void main() {
           MultiProvider(
             providers: [
               ChangeNotifierProvider(create: (context) => favoritesModel),
-              Provider(create: (context) => FakeQuotesService()),
+              Provider<QuotesService>(create: (context) => FakeQuotesService()),
             ],
             child: const MyApp(),
           )
