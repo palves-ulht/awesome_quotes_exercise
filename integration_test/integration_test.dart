@@ -137,10 +137,13 @@ void main() {
     });
 
     testWidgets('Mark as favorite and navigate to favorites', (WidgetTester tester) async {
+
+      final favoritesModel = FavoritesModel();
+
       await tester.pumpWidget(
           MultiProvider(
             providers: [
-              ChangeNotifierProvider(create: (context) => FavoritesModel()),
+              ChangeNotifierProvider(create: (context) => favoritesModel),
               Provider<QuotesService>(create: (context) => FakeQuotesService()),
             ],
             child: const MyApp(),
@@ -150,7 +153,7 @@ void main() {
       expect(find.byType(QuotePage), findsOneWidget);
 
       // check that the model is empty
-      expect(FavoritesModel.instance.favorites, equals([]));
+      expect(favoritesModel.favorites, equals([]));
 
       // buttons
       expect(find.byKey(kLiKeButtonKey), findsOneWidget);
@@ -158,7 +161,7 @@ void main() {
       await tester.tap(find.byKey(kLiKeButtonKey));
 
       // check that the model now includes the favorite quote
-      expect(FavoritesModel.instance.favorites, equals([defaultQuote]));
+      expect(favoritesModel.favorites, equals([defaultQuote]));
 
       await tester.tap(find.byKey(kFavoritesPageKey));
       await tester.pump();
