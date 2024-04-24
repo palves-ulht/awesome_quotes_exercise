@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 final defaultQuote = Quote("Testing quote", "Testing author");
 
 class FakeQuotesService extends QuotesService {
+  @override
   Quote getRandomQuote() {
     return defaultQuote;
   }
