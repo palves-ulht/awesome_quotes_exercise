@@ -25,7 +25,7 @@ jobs:
         id: flutter-tests
         run: flutter test
       - name: Autograding Reporter
-        uses: classroom-resources/autograding-grading-reporter@v1
+        uses: ./
         env:
           DART-ANALYZE_RESULTS: ""${{steps.dart-analyze.outputs.result}}""
           FLUTTER-TESTS_RESULTS: ""${{steps.flutter-tests.outputs.result}}""
