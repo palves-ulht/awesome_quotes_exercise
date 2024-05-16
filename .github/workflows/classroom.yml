@@ -27,7 +27,7 @@ jobs:
       - name: Autograding Reporter
         uses: ./
         env:
-          DART-ANALYZE_RESULTS: ""${{steps.dart-analyze.outputs.result}}""
-          FLUTTER-TESTS_RESULTS: ""${{steps.flutter-tests.outputs.result}}""
+          DART-ANALYZE_RESULTS: "${{steps.dart-analyze.outputs.result}}"
+          FLUTTER-TESTS_RESULTS: "${{steps.flutter-tests.outputs.result}}"
         with:
           runners: dart-analyze,flutter-tests
