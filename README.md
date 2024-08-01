@@ -1,72 +1,53 @@
-# Exercício Flutter - awesome quotes
+# Flutter exercise - awesome quotes
 
-## Objetivo
+## Goal
 
-O objetivo deste exercício é desenvolver uma aplicação em flutter que mostra frases inspiradoras.
+The goal of this exercise is to develop a Flutter application that displays inspirational quotes.
 
 ![demonstração](./docs/awesome-quotes-demo.gif)
 
-## Exercício
+## Exercise
 
-Este repositório foi criado já com a estrutura (em termos de ficheiros) da aplicação, só tens que criar o código necessário
-dentro desses ficheiros. Já existe algum código criado para customizar o tema da aplicação.
+This repository has already been created with the right project structure; you only need to create the necessary code within the provided files. Some code has already been created to customize the application’s theme.
 
-Estão também incluídos dois ficheiros test/widget_test.dart e integration_test/integration_test.dart que 
-permitem correr uma série de testes de widget/integração. Não deves alterar
-estes ficheiros. Deves, no entanto, utilizá-los para validar localmente que implementaste corretamente a aplicação. 
+Two test files, test/widget_test.dart and integration_test/integration_test.dart, are also included, allowing you to run a series of widget/integration tests. You should not modify these files. However, you should use them to locally validate that you have correctly implemented the application.
 
-Além disso, estes testes vão ser executados de cada vez que fazes push para o repositório[^1].
+Additionally, these tests will be executed every time you push to the repository[^1].
 
-Estes testes assumem que alguns dos widgets têm uma chave específica associada, vê na imagem abaixo quais
-são essas chaves:
+These tests assume that some widgets have specific keys associated with them. See the image below to identify these keys:
 
 ![chaves dos widgets](./docs/screenshot.png)
 
-Deves então criar a aplicação tendo em conta estes pressupostos, até que ela:
-* Tenha o aspeto e comportamento apresentado na demonstração acima
-* Passe os testes de widget e integração
+You should create the application considering these requirements until it:
+* Has the appearance and behavior shown in the demonstration above
+* Passes the widget and integration tests
 
-## Pressupostos
+## Assumptions
 
-Este exercício pressupõe que sabes o que são testes de integração e sabes usar o Provider. Se ainda não o fizeste,
-vê o vídeo [Desenvolvimento com widgets em flutter - parte 5](https://www.youtube.com/watch?v=22WyA_NVkLk).
+This exercise assumes that you understand what integration tests are and know how to use Provider. If you haven’t done so yet, watch the video [Developing with flutter widgets - part 5](https://www.youtube.com/watch?v=22WyA_NVkLk).
 
-Pressupõe igualmente que saber o que é o padrão Observer/Observable e como usá-lo em Flutter. Se ainda não o fizeste,
-vê o vídeo [Desenvolvimento com widgets em flutter - parte 6](https://www.youtube.com/watch?v=6n9qzEjSlzs).
+It also assumes that you understand the Observer/Observable pattern and how to use it in Flutter. If you haven’t done so yet, watch the video [Developing with flutter widgets - part 6](https://www.youtube.com/watch?v=6n9qzEjSlzs).
 
-## Dicas técnicas
+## Technical tips
 
-Para obteres as frases "inspiradoras" irás usar a lib [awesome_quotes](https://pub.dev/packages/awesome_quotes). Esta lib
-já está incluída no pubspec.yaml.
+To obtain the “inspirational” quotes, you will use the [awesome_quotes](https://pub.dev/packages/awesome_quotes) library. This library is already included in the pubspec.yaml file.
 
-Para a navegação deves usar uma [NavigationBar](https://api.flutter.dev/flutter/material/NavigationBar-class.html). A navegação
-deve ser implementada no widget `MainPage` que deves criar no ficheiro `main_page.dart`.
+For navigation, you should use a [NavigationBar](https://api.flutter.dev/flutter/material/NavigationBar-class.html). The navigation should be implemented in the
+`MainPage` widget, which you should create in the `main_page.dart` file.
 
-Deverás implementar 2 classes: `FavoritesModel` e `QuotesService` (as classes já existem mas estão vazias). Estas classes
-não deverão ser Singletons, pois isso prejudica a sua testabilidade. Em vez disso, devem ser instanciadas no main() e injetadas
-na aplicação através de um `MultiProvider`. A lib `Provider` já está incluída no pubspec.yaml.
+You will need to implement two classes: `FavoritesModel` and `QuotesService` (the classes already exist but are empty). These classes should not be Singletons, as that would hinder their testability. 
+Instead, they should be instantiated in main() and injected into the application via a `MultiProvider`. The `Provider` library is already included in the pubspec.yaml file.
 
-Como estas 2 classes são injetadas, nunca as deves instanciar no `QuotePage` e `FavoritesPage`, em vez disso deves usar o 
-`context.read()` para as obteres.
+Since these two classes are injected, you should never instantiate them in `QuotePage` and `FavoritesPage`. Instead, you should use  
+`context.read()` to obtain them.
 
-A classe `FavoritesModel` deve incluir uma propriedade `favorites` contendo uma lista de `Quote` (esta classe
-está incluída na biblioteca "awesome_quotes"). Para garantir o encapsulamento, essa propriedade deve ser apenas de leitura
-(dica: usa um getter que retorne `UnmodifiableListView` ) e deves incluir um método `addFavorite(Quote quote)`.  
-Além disso, esta classe deve ser observável, e chamadas ao `addFavorite(Quote quote)` devem avisar os observadores que o
-o estado do objeto foi modificado.
+The `FavoritesModel` class should include a `favorites` property containing a list of `Quote` objects (this class is included in the "awesome_quotes" library). To ensure encapsulation, this property should be read-only (hint: use a getter that returns an `UnmodifiableListView`) and you should include an `addFavorite(Quote quote)` method. Additionally, this class should be observable, and calls to `addFavorite(Quote quote)` should notify observers that the object's state has changed.
 
-A classe `QuotesService` deverá incluir um método `getRandomQuote()` que retorna uma quote aleatória. Esta classe
-limita-se a chamar a biblioteca "awesome_quotes". Parece uma classe desnecessária (porque não colocar o widget a chamar 
-diretamente a biblioteca?) mas vai permitir que os testes usem um `FakeQuoteService` que retorna sempre a mesma quote.
-Vê as primeiras linhas do `widget_test.dart` para perceberes do que estamos a falar.
+The `QuotesService` class should include a `getRandomQuote()` method that returns a random quote. This class simply calls the "awesome_quotes" library. It may seem like an unnecessary class (why not have the widget call the library directly?), but it allows tests to use a `FakeQuoteService` that always returns the same quote. See the first lines of `widget_test.dart` to understand what we are referring to.
 
-Nota que há quotes bastante grandes (com muitos carateres). Deves ter o cuidado de garantir que o texto da quote cabe sempre no ecrã
-sem fazer overflow.
+Note that there are some quotes that are quite large (with many characters). You should ensure that the quote text always fits on the screen without overflowing.
 
-Se reparares, o código do testes de widget é praticamente igual aos do testes de integração. No entanto, os testes de widget
-correm muito mais rápido, por isso recomendamos que executes esses testes em vez dos de integração. No entanto, pode haver
-erros difíceis de diagnosticar nos testes de widget que se tornam mais óbvios nos testes de integração pois consegues ver
-no emulador aquilo que está a ser testado.
+If you notice, the widget test code is very similar to the integration test code. However, widget tests run much faster, so we recommend running those tests instead of the integration tests. Nevertheless, there may be errors that are difficult to diagnose in widget tests which become more obvious in integration tests since you can see what is being tested on the emulator.
 
-[^1]: Por razões de desempenho, neste momento, os testes de integração não estão a ser executados no github.
+[^1]: For performance reasons, at the moment, integration tests are not being run on GitHub.
 
