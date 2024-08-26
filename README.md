@@ -8,7 +8,7 @@ The goal of this exercise is to develop a Flutter application that displays insp
 
 ## Exercise
 
-This repository has already been created with the right project structure; you only need to create the necessary code within the provided files. Some code has already been created to customize the application’s theme.
+This repository has already been created with the expected project structure; you only need to create the necessary code within the provided files. Some code has already been created to customize the application’s theme.
 
 Two test files, test/widget_test.dart and integration_test/integration_test.dart, are also included, allowing you to run a series of widget/integration tests. You should not modify these files. However, you should use them to locally validate that you have correctly implemented the application.
 
